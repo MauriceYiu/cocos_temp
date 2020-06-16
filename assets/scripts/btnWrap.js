@@ -24,25 +24,29 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        alert:{
-            type:cc.Prefab,
-            default:null
-        }
     },
-
+    ctor:function(){
+        this.moving = false;
+    },
+    onclickMove:function(){
+        this.moving = true;
+    },
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-    onClickBtn:function () { 
-        createAlert(this.node,"ceshi",function(){
-            cc.log("取消");
-        },function(){
-            cc.log("确认");
-        })
+    onLoad () {
+        this.node.setPosition(cc.v2(960/2,-640/2));
     },
+
     start () {
 
     },
 
-    // update (dt) {},
+    update (dt) {
+        if(this.moving){
+            this.node.x -= dt*100;
+            if(this.node.x < 260){
+                this.node.x = 260;
+            }
+        }
+    },
 });
