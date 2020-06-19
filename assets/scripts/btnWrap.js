@@ -26,15 +26,31 @@ cc.Class({
         // },
     },
     ctor:function(){
+        //true为right,false为left
         this.moving = false;
+        
     },
     onclickMove:function(){
-        this.moving = true;
+        this.moving = !this.moving;
+        if(this.moving){
+            // this.setArrowTip(">>");
+            this.node.getChildByName("btnLeft").active = false;
+            this.node.getChildByName("btnRight").active = true;
+        }else{
+            this.node.getChildByName("btnRight").active = false;
+            this.node.getChildByName("btnLeft").active = true;
+        }
     },
-    // LIFE-CYCLE CALLBACKS:
-
+    // // LIFE-CYCLE CALLBACKS:
+    // 暂时不知道为啥不能通过代码更改按钮的文本
+    // setArrowTip:function (tip) { 
+    //     var node = this.node.getChildByName("btn1");
+    //     node = node.getChildByName("Background");
+    //     node.getChildByName("Label").String = tip;
+    // },
     onLoad () {
         this.node.setPosition(cc.v2(960/2,-640/2));
+        // this.setArrowTip("<<");
     },
 
     start () {
@@ -43,9 +59,14 @@ cc.Class({
 
     update (dt) {
         if(this.moving){
-            this.node.x -= dt*100;
+            this.node.x -= dt*390;
             if(this.node.x < 260){
                 this.node.x = 260;
+            }
+        }else{
+            this.node.x += dt*390;
+            if(this.node.x > 480){
+                this.node.x = 480;
             }
         }
     },
